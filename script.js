@@ -163,11 +163,20 @@ function counterReducer(state = initialState, action) {
       ...state,
       counters: state.counters.map((counter) => {
         if (counter.counterID + 1 === Number(action.payload.id)) {
-
-          return {
-            ...counter,
-            value: counter.value - counter.decrementBy,
-          };
+          if(state.counters.value < 0){
+            return {
+                value:0
+              
+                }
+            }
+            else{
+            return {
+                    ...counter,
+                    value: counter.value - counter.decrementBy,
+                  };
+            
+                }
+          
         } else {
           return counter;
         }
@@ -213,7 +222,8 @@ function decrement(counterID, decrementBy) {
 
 //Subscribe to store changes
 store.subscribe(() => {
-  console.log(store.getState());
+  store.getState();
+//   console.log(store.getState());
 });
 
 //Initial render
